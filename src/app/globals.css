@@ -24,3 +24,21 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Adiciona customização para a barra de rolagem */
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+
+.scrollbar-thumb-gray-400::-webkit-scrollbar-thumb {
+  background-color: #cbd5e0; /* Um tom de cinza claro */
+  border-radius: 10px;
+}
+
+.scrollbar-track-gray-100::-webkit-scrollbar-track {
+  background-color: #f7fafc; /* Um cinza bem claro */
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px; /* Largura da barra de rolagem */
+}

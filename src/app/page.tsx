@@ -1,103 +1,150 @@
-import Image from "next/image";
+"use client"; 
+
+import { useState } from 'react';
+import { useSession } from 'next-auth/react';
+import SkeletonCard from '../components/SkeletonCard';
+import ErrorMessage from '../components/ErrorMessage';
+import Card from '../components/Card';
+import ConsultaCard from '../components/ConsultaCard'; // Importa o novo componente
+import { useUser } from './contexts/UserContext';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [creci, setCreci] = useState("");
+  const { creciQueries, addCreciQuery } = useUser(); // Acessando o contexto de consultas
+  const [isLoading, setIsLoading] = useState(false);
+  const [responseMessage, setResponseMessage] = useState<string | null>(null);
+  const [cardData, setCardData] = useState<any | null>(null); // Dados do card
+  const { data: session } = useSession(); // Pegando os dados do usuário logado
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const handleSearch = async () => {
+    if (!creci) return; // Evita enviar uma busca vazia
+    setIsLoading(true);
+    setResponseMessage(null); // Limpa a mensagem anterior
+    setCardData(null); // Limpa os dados do card
+
+    // Simulando uma requisição para a API
+    setTimeout(() => {
+      // Simulação de resposta de uma API
+      const simulatedData = {
+        name: "Edecir Joao Bordin",
+        status: "Ativo",
+        creci: "CRECI/RS 12345-F",
+        city: "Passo Fundo",
+        state: "RS",
+        phones: ["(54) 1234-5678", "(54) 8765-4321"],
+        emails: ["edecir.bordin@email.com", "joao.bordin@email.com"],
+        address: "Rua A, 123, Centro, Passo Fundo, RS",
+        cpf: "123.456.789-00",
+        photoUrl: "/user-default.jpg", // URL da foto (se tiver)
+      };
+
+      // Simulando um erro (basta comentar para remover o erro)
+      const isError = false; // Troque para 'true' para simular um erro
+      if (isError) {
+        setResponseMessage("Erro ao buscar as informações do CRECI. Tente novamente mais tarde.");
+      } else {
+        setCardData(simulatedData); // Atualiza os dados do card com a simulação
+
+        // Adicionando o CRECI consultado na lista
+        if (session?.user?.email) {
+          addCreciQuery(creci); // Adiciona a consulta ao contexto
+        }
+      }
+
+      setIsLoading(false); // Finaliza o loading após 2 segundos
+    }, 2000);
+  };
+
+
+
+  return (
+    <div
+      className="min-h-screen relative"
+      style={{
+        backgroundImage: "url('/brasilzao_implementado.png')",
+        backgroundSize: "contain",
+        backgroundPosition: "center right",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      <br />
+      <br />
+      <br />
+      <br />
+      <div className="grid grid-cols-1 sm:grid-cols-12 gap-8 p-8 pb-20 sm:p-20">
+        {/* Conteúdo principal */}
+        <div className="col-span-1 sm:col-span-9 flex flex-col items-center justify-center sm:items-start w-full px-4 sm:px-0">
+          <main className="flex flex-col gap-8 items-center sm:items-start max-w-lg mx-auto sm:max-w-3xl">
+            <h1 className="text-4xl font-bold text-center sm:text-left">
+              Bem-vindo ao Busca CRECI
+            </h1>
+            <p className="text-lg text-center sm:text-left">
+              Consulte o Registro de Corretores e Imobiliárias
+            </p>
+  
+            {/* Campo de Busca */}
+            <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
+              <input
+                type="text"
+                className="w-full p-3 border border-gray-300 rounded-lg"
+                placeholder="Digite o número CRECI"
+                value={creci}
+                onChange={(e) => setCreci(e.target.value)}
+              />
+              <button
+                onClick={handleSearch}
+                disabled={isLoading}
+                className={`w-full mt-4 py-3 rounded-lg ${isLoading ? 'bg-gray-400' : 'bg-blue-500 hover:bg-blue-600'}`}
+              >
+                {isLoading ? (
+                  <div className="w-5 h-5 border-4 border-t-4 border-blue-600 rounded-full animate-spin mx-auto"></div>
+                ) : (
+                  "Buscar"
+                )}
+              </button>
+            </div>
+  
+            {/* Exibe o Skeleton enquanto os dados estão sendo carregados */}
+            {isLoading && <SkeletonCard />}
+  
+            {/* Exibe o card com os dados retornados */}
+            {cardData && (
+              <Card
+                name={cardData.name}
+                status={cardData.status}
+                creci={cardData.creci}
+                city={cardData.city}
+                state={cardData.state}
+                phones={cardData.phones}
+                emails={cardData.emails}
+                address={cardData.address}
+                cpf={cardData.cpf}
+                photoUrl={cardData.photoUrl} // Passa a URL da foto
+              />
+            )}
+  
+            {/* Exibe a mensagem de erro */}
+            {responseMessage && <ErrorMessage message={responseMessage} />}
+          </main>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+  
+        {/* Exibe a lista de CRECIs consultados abaixo da consulta principal */}
+        <div className="col-span-1 sm:col-span-3 w-full sm:w-80 p-4 bg-white shadow-lg max-h-[70vh] overflow-y-auto sm:sticky sm:top-10 mt-8 sm:mt-0 rounded-lg scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100" style={{ backgroundColor:"#ffffffd1" }}>
+          <h2 className="text-xl font-semibold text-center">Minhas consultas</h2><br />
+          <div className="space-y-4">
+            {creciQueries.slice().reverse().map((query, index) => (
+              <ConsultaCard
+                key={index}
+                creci={query.creci}    // Agora isso funciona, pois 'query' é um objeto com a propriedade 'creci'
+                data={query.date}
+                photoUrl={query.photoUrl} // Passa a URL da foto
+                status={query.status}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
+  
 }
