@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 type CardProps = {
   name: string;
@@ -28,10 +29,12 @@ const Card: React.FC<CardProps> = ({
   return (
     <div className="bg-white shadow-lg rounded-lg p-6 max-w-lg w-full mx-auto dark:bg-gray-800">
       <div className="flex items-center gap-4 mb-4">
-        <img
+        <Image
           src={photoUrl || "/user-default.jpg"} // Usa a imagem padrão se não houver URL
           alt={name}
           className="w-16 h-16 rounded-full object-cover"
+          width={64}
+          height={64}
         />
         <div>
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{name}</h2>

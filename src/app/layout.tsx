@@ -1,7 +1,6 @@
 // app/layout.tsx
 "use client";
 
-import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
@@ -23,7 +22,7 @@ const geistMono = Geist_Mono({
 });
 
 // SEO Básico
-const metadata: Metadata = {
+/* const metadata: Metadata = {
   title: "BuscaCRECI - Consulta de Corretores e Imobiliárias",
   description: "Encontre rapidamente informações de registro de corretores e imobiliárias em todo o Brasil. Simples, rápido e confiável.",
   keywords: "CRECI, Consulta CRECI, Corretores, Imobiliárias, Registro CRECI",
@@ -46,7 +45,7 @@ const metadata: Metadata = {
   },
   robots: "index, follow",
   metadataBase: new URL("https://buscacreci.com.br"),
-};
+}; */
 
 export default function RootLayout({
   children,

@@ -1,7 +1,7 @@
 "use client";
 
-import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -124,7 +124,9 @@ export default function Header() {
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-4 py-2 bg-white hover:bg-gray-100 text-gray-800 rounded-lg font-medium transition"
           >
-            <img
+            <Image
+              width={20}
+              height={20}
               src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/github.svg"
               alt="GitHub"
               className="w-5 h-5"

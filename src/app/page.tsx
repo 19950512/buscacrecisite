@@ -7,13 +7,26 @@ import ErrorMessage from '../components/ErrorMessage';
 import Card from '../components/Card';
 import ConsultaCard from '../components/ConsultaCard'; // Importa o novo componente
 import { useUser } from './contexts/UserContext';
+interface CardData {
+  name: string;
+  status: string;
+  creci: string;
+  city: string;
+  state: string;
+  phones: string[];
+  emails: string[];
+  address: string;
+  cpf: string;
+  photoUrl: string;
+}
+
 
 export default function Home() {
   const [creci, setCreci] = useState("");
   const { creciQueries, addCreciQuery } = useUser(); // Acessando o contexto de consultas
   const [isLoading, setIsLoading] = useState(false);
   const [responseMessage, setResponseMessage] = useState<string | null>(null);
-  const [cardData, setCardData] = useState<any | null>(null); // Dados do card
+  const [cardData, setCardData] = useState<CardData | null>(null); // Dados do card
   const { data: session } = useSession(); // Pegando os dados do usuário logado
 
   const handleSearch = async () => {
@@ -25,7 +38,7 @@ export default function Home() {
     // Simulando uma requisição para a API
     setTimeout(() => {
       // Simulação de resposta de uma API
-      const simulatedData = {
+      const simulatedData: CardData = {
         name: "Edecir Joao Bordin",
         status: "Ativo",
         creci: "CRECI/RS 12345-F",
@@ -37,7 +50,7 @@ export default function Home() {
         cpf: "123.456.789-00",
         photoUrl: "/user-default.jpg", // URL da foto (se tiver)
       };
-
+      
       // Simulando um erro (basta comentar para remover o erro)
       const isError = false; // Troque para 'true' para simular um erro
       if (isError) {

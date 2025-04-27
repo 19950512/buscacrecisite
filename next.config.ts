@@ -3,7 +3,7 @@ import path from "path";
 
 const nextConfig: NextConfig = {
   experimental: {
-    appDir: true, // Habilita o App Router
+    //appDir: true, // Habilita o App Router
   },
   webpack(config, { isServer }) {
     if (!isServer) {
