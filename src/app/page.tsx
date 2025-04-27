@@ -50,7 +50,7 @@ export default function Home() {
         cpf: "123.456.789-00",
         photoUrl: "/user-default.jpg", // URL da foto (se tiver)
       };
-      
+
       // Simulando um erro (basta comentar para remover o erro)
       const isError = false; // Troque para 'true' para simular um erro
       if (isError) {
@@ -142,20 +142,23 @@ export default function Home() {
         </div>
   
         {/* Exibe a lista de CRECIs consultados abaixo da consulta principal */}
-        <div className="col-span-1 sm:col-span-3 w-full sm:w-80 p-4 bg-white shadow-lg max-h-[70vh] overflow-y-auto sm:sticky sm:top-10 mt-8 sm:mt-0 rounded-lg scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100" style={{ backgroundColor:"#ffffffd1" }}>
-          <h2 className="text-xl font-semibold text-center">Minhas consultas</h2><br />
-          <div className="space-y-4">
-            {creciQueries.slice().reverse().map((query, index) => (
-              <ConsultaCard
-                key={index}
-                creci={query.creci}    // Agora isso funciona, pois 'query' é um objeto com a propriedade 'creci'
-                data={query.date}
-                photoUrl={query.photoUrl} // Passa a URL da foto
-                status={query.status}
-              />
-            ))}
+        {creciQueries.length > 0 && (
+          <div className="col-span-1 sm:col-span-3 w-full sm:w-80 p-4 bg-white shadow-lg max-h-[70vh] overflow-y-auto sm:sticky sm:top-10 mt-8 sm:mt-0 rounded-lg scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100" style={{ backgroundColor:"#ffffffd1" }}>
+            <h2 className="text-xl font-semibold text-center">Minhas consultas</h2><br />
+            <div className="space-y-4">
+              {creciQueries.slice().reverse().map((query, index) => (
+                <ConsultaCard
+                  key={index}
+                  creci={query.creci}    // Agora isso funciona, pois 'query' é um objeto com a propriedade 'creci'
+                  data={query.date}
+                  photoUrl={query.photoUrl} // Passa a URL da foto
+                  status={query.status}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+        )}
+
       </div>
     </div>
   );
