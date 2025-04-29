@@ -15,7 +15,7 @@ export interface CreciApiResponse {
   
   export async function fetchCreciData(creci: string): Promise<CreciApiResponse> {
    
-    let baseURL = process.env.NEXT_PUBLIC_API_URL || "https://api.buscacreci.com.br";
+    const baseURL = process.env.NEXT_PUBLIC_API_URL || "https://api.buscacreci.com.br";
 
     const res = await fetch(`${baseURL}/?creci=${encodeURIComponent(creci)}`);
     

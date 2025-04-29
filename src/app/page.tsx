@@ -44,8 +44,12 @@ export default function Home() {
       if (session?.user?.email) {
         addCreciQuery(data); // Assumindo que salva também os outros dados (melhorar se necessário)
       }
-    } catch (error: any) {
-      setResponseMessage(error.message || "Erro inesperado ao buscar o CRECI.");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setResponseMessage(error.message || "Erro inesperado ao buscar o CRECI.");
+      } else {
+        setResponseMessage("Erro inesperado ao buscar o CRECI.");
+      }
     }
 
     setIsLoading(false); // Finaliza o loading após 2 segundos
