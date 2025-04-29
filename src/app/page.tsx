@@ -7,6 +7,8 @@ import ErrorMessage from '../components/ErrorMessage';
 import Card from '../components/Card';
 import ConsultaCard from '../components/ConsultaCard'; // Importa o novo componente
 import { useUser } from './contexts/UserContext';
+import { fetchCreciData } from './repositories/creciRepository';
+
 interface CardData {
   name: string;
   status: string;
@@ -35,51 +37,29 @@ export default function Home() {
     setResponseMessage(null); // Limpa a mensagem anterior
     setCardData(null); // Limpa os dados do card
 
-    // Simulando uma requisição para a API
-    setTimeout(() => {
-      // Simulação de resposta de uma API
-      const simulatedData: CardData = {
-        name: "Edecir Joao Bordin",
-        status: "Ativo",
-        creci: "CRECI/RS 12345-F",
-        city: "Passo Fundo",
-        state: "RS",
-        phones: ["(54) 1234-5678", "(54) 8765-4321"],
-        emails: ["edecir.bordin@email.com", "joao.bordin@email.com"],
-        address: "Rua A, 123, Centro, Passo Fundo, RS",
-        cpf: "123.456.789-00",
-        photoUrl: "/user-default.jpg", // URL da foto (se tiver)
-      };
-
-      // Simulando um erro (basta comentar para remover o erro)
-      const isError = false; // Troque para 'true' para simular um erro
-      if (isError) {
-        setResponseMessage("Erro ao buscar as informações do CRECI. Tente novamente mais tarde.");
-      } else {
-        setCardData(simulatedData); // Atualiza os dados do card com a simulação
-
-        // Adicionando o CRECI consultado na lista
-        if (session?.user?.email) {
-          addCreciQuery(creci); // Adiciona a consulta ao contexto
-        }
+    try {
+      const data = await fetchCreciData(creci);
+      setCardData(data);
+  
+      if (session?.user?.email) {
+        addCreciQuery(data); // Assumindo que salva também os outros dados (melhorar se necessário)
       }
+    } catch (error: any) {
+      setResponseMessage(error.message || "Erro inesperado ao buscar o CRECI.");
+    }
 
-      setIsLoading(false); // Finaliza o loading após 2 segundos
-    }, 2000);
+    setIsLoading(false); // Finaliza o loading após 2 segundos
   };
 
-
-
-  return (
-    <div
-      className="min-h-screen relative"
-      style={{
-        backgroundImage: "url('/brasilzao_implementado.png')",
-        backgroundSize: "contain",
-        backgroundPosition: "center right",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
+  return (<div
+    className="min-h-screen relative bg-white dark:bg-gray-900 transition-colors"
+    style={{
+      backgroundImage: "url('/brasilzao_implementado.png')",
+      backgroundSize: "contain",
+      backgroundPosition: "center right",
+      backgroundRepeat: "no-repeat",
+    }}
+  >
       <br />
       <br />
       <br />
@@ -96,10 +76,10 @@ export default function Home() {
             </p>
   
             {/* Campo de Busca */}
-            <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-lg transition-colors">
               <input
                 type="text"
-                className="w-full p-3 border border-gray-300 rounded-lg"
+                className="w-full p-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg"
                 placeholder="Digite o número CRECI"
                 value={creci}
                 onChange={(e) => setCreci(e.target.value)}
@@ -107,7 +87,11 @@ export default function Home() {
               <button
                 onClick={handleSearch}
                 disabled={isLoading}
-                className={`w-full mt-4 py-3 rounded-lg ${isLoading ? 'bg-gray-400' : 'bg-blue-500 hover:bg-blue-600'}`}
+                className={`w-full mt-4 py-3 rounded-lg text-white ${
+                  isLoading
+                    ? 'bg-gray-400 dark:bg-gray-600'
+                    : 'bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700'
+                }`}
               >
                 {isLoading ? (
                   <div className="w-5 h-5 border-4 border-t-4 border-blue-600 rounded-full animate-spin mx-auto"></div>
@@ -116,6 +100,7 @@ export default function Home() {
                 )}
               </button>
             </div>
+
   
             {/* Exibe o Skeleton enquanto os dados estão sendo carregados */}
             {isLoading && <SkeletonCard />}
@@ -143,14 +128,14 @@ export default function Home() {
   
         {/* Exibe a lista de CRECIs consultados abaixo da consulta principal */}
         {creciQueries.length > 0 && (
-          <div className="col-span-1 sm:col-span-3 w-full sm:w-80 p-4 bg-white shadow-lg max-h-[70vh] overflow-y-auto sm:sticky sm:top-10 mt-8 sm:mt-0 rounded-lg scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100" style={{ backgroundColor:"#ffffffd1" }}>
+          <div className="col-span-1 sm:col-span-3 w-full sm:w-80 p-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-lg max-h-[70vh] overflow-y-auto sm:sticky sm:top-10 mt-8 sm:mt-0 rounded-lg scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100 transition-colors">
             <h2 className="text-xl font-semibold text-center">Minhas consultas</h2><br />
             <div className="space-y-4">
               {creciQueries.slice().reverse().map((query, index) => (
                 <ConsultaCard
                   key={index}
                   creci={query.creci}    // Agora isso funciona, pois 'query' é um objeto com a propriedade 'creci'
-                  data={query.date}
+                  data={query.data}
                   photoUrl={query.photoUrl} // Passa a URL da foto
                   status={query.status}
                 />
