@@ -30,15 +30,27 @@ export default function Home() {
   const [responseMessage, setResponseMessage] = useState<string | null>(null);
   const [cardData, setCardData] = useState<CardData | null>(null); // Dados do card
   const { data: session } = useSession(); // Pegando os dados do usuário logado
-
+  const removeEspacos = (str: string): string => {
+    return str.replace(/\s+/g, '');
+  };
   const handleSearch = async () => {
-    if (!creci) return; // Evita enviar uma busca vazia
+
+    const creciFinal = removeEspacos(creci); // Remove espaços em branco
+
+    const creciRegex = /^[A-Z]{2}\d{1,6}[FJ]$/i;
+
+    if (!creciFinal || !creciRegex.test(creciFinal)) {
+      setResponseMessage("Formato inválido do CRECI. Use algo como RS12345F ou SP98765J.");
+      return;
+    }
+    
+    if (!creciFinal) return; // Evita enviar uma busca vazia
     setIsLoading(true);
     setResponseMessage(null); // Limpa a mensagem anterior
     setCardData(null); // Limpa os dados do card
 
     try {
-      const data = await fetchCreciData(creci);
+      const data = await fetchCreciData(creciFinal);
       setCardData(data);
   
       if (session?.user?.email) {
@@ -84,7 +96,7 @@ export default function Home() {
               <input
                 type="text"
                 className="w-full p-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg"
-                placeholder="Digite o número CRECI"
+                placeholder="Digite o CRECI exemplo: RS12345F"
                 value={creci}
                 onChange={(e) => setCreci(e.target.value)}
               />

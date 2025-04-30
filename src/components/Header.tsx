@@ -102,7 +102,7 @@ export default function Header() {
                   />
                 </svg>
               )}
-              <span className="hidden sm:block">{loading ? "Carregando..." : "Entrar com Google"}</span>
+              <span className="hidden sm:block cursor-pointer">{loading ? "Carregando..." : "Entrar com Google"}</span>
             </button>
           )}
 
