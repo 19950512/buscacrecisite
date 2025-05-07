@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import SkeletonCard from "../components/SkeletonCard";
-import ErrorMessage from "../components/ErrorMessage";
 import Card from "../components/Card";
 import ConsultaCard from "../components/ConsultaCard"; // Importa o novo componente
 import { useUser } from "./contexts/UserContext";
