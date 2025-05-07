@@ -79,7 +79,7 @@ export default function Home() {
           // Atualiza o status da consulta com o status retornado
           setStatusConsulta(statusData.status);
 
-          if (statusData.status === "FINALIZADO") {
+          if (statusData.status === "FINALIZADO" && statusData.creciID !== "") {
             const respostaData = await fetchCreciData(statusData.creciID);
 
             if (respostaData.name) {
@@ -95,7 +95,12 @@ export default function Home() {
             }
 
             clearInterval(checkInterval); // Para a consulta periódica quando os dados forem retornados
-          } else {
+          } else if(statusData.status === "FINALIZADO" && statusData.creciID === "") {
+            // Se o status for FINALIZADO mas sem CRECI ID, mostra mensagem de erro
+            setResponseMessage("Consulta finalizada, mas sem dados disponíveis.");
+            setResponseMessageType("error"); // Exibe mensagem de erro
+            clearInterval(checkInterval); // Para a consulta periódica
+          }else {
             console.log("Status atual:", statusData.status); // Log para ver o status
           }
         } catch (error) {
