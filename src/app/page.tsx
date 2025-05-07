@@ -95,12 +95,7 @@ export default function Home() {
             }
 
             clearInterval(checkInterval); // Para a consulta periódica quando os dados forem retornados
-          } else if(statusData.status === "FINALIZADO" && statusData.creciID === "" && statusData.mensagem !== 'Creci já foi consultado anteriormente.') {
-            // Se o status for FINALIZADO mas sem CRECI ID, mostra mensagem de erro
-            setResponseMessage(statusData.mensagem || "Erro ao buscar dados.");
-            setResponseMessageType("error"); // Exibe mensagem de erro
-            clearInterval(checkInterval); // Para a consulta periódica
-          }else {
+          } else {
             console.log("Status atual:", statusData.status); // Log para ver o status
           }
         } catch (error) {
