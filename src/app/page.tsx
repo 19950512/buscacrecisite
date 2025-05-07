@@ -97,7 +97,7 @@ export default function Home() {
             clearInterval(checkInterval); // Para a consulta periódica quando os dados forem retornados
           } else if(statusData.status === "FINALIZADO" && statusData.creciID === "") {
             // Se o status for FINALIZADO mas sem CRECI ID, mostra mensagem de erro
-            setResponseMessage("Consulta finalizada, mas sem dados disponíveis.");
+            setResponseMessage(statusData.mensagem || "Erro ao buscar dados.");
             setResponseMessageType("error"); // Exibe mensagem de erro
             clearInterval(checkInterval); // Para a consulta periódica
           }else {
