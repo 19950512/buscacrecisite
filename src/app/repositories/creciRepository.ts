@@ -176,13 +176,13 @@ export async function fetchCreciData(creci: string): Promise<CreciApiResponse> {
   }
 
   const discordMessage = `📥 *Consulta CRECI recebida do site*\n
-    Nome: ${data.nomeCompleto}
-    CRECI: ${data.creciCompleto}
-    Situação: ${data.situacao}
-    CPF: ${data.cpf}
-    Cidade: ${data.cidade}
-    Estado: ${data.estado}
-    Data: ${data.momento}
+    Nome: ${data.nomeCompleto || ''}
+    CRECI: ${data.creciCompleto || ''}
+    Situação: ${data.situacao || ''}
+    CPF: ${data.cpf || ''}
+    Cidade: ${data.cidade || ''}
+    Estado: ${data.estado || ''}
+    Data: ${data.momento || ''}
   `;
   
   notifyDiscord(discordMessage);
