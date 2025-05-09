@@ -18,12 +18,37 @@ export interface CreciApiResponse {
   cpf: string;
   data: string;
   photoUrl: string;
-
 }
 
 export interface CreciRequestResponse {
   message: string;
   codigo_solicitacao: string;
+}
+
+export async function fetchUltimosCrecis(): Promise<CreciApiResponse[]> {
+  const baseURL = process.env.NEXT_PUBLIC_API_URL || "https://api.buscacreci.com.br";
+  
+  // Aqui você pode substituir pelo seu endpoint real para pegar os últimos CRECIs.
+  const res = await fetch(`${baseURL}/ultimos-crecis`);
+
+  if (!res.ok) {
+    let errorMessage = "Erro ao buscar últimos CRECIs.";
+    try {
+      const errorData = await res.json();
+      if (errorData?.message) {
+        errorMessage = errorData.message;
+      }
+    } catch {
+      errorMessage = `Erro ao buscar últimos CRECIs: ${res.statusText}`;
+    }
+
+    throw new Error(errorMessage);
+  }
+
+  const data = await res.json();
+  
+  // Assumimos que o retorno da API é uma lista de CRECIs
+  return data;
 }
 
 export async function requestCreciData(creci: string): Promise<CreciRequestResponse> {

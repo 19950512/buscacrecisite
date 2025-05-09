@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://buscacreci.com.br/sitemap.xml

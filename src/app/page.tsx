@@ -135,9 +135,7 @@ export default function Home() {
         {/* Conteúdo principal */}
         <div className="col-span-1 sm:col-span-9 flex flex-col items-center justify-center sm:items-start w-full px-4 sm:px-0">
           <main className="flex flex-col gap-3 items-center sm:items-start max-w-lg mx-auto sm:max-w-3xl">
-            <h1 className="text-4xl font-bold text-center sm:text-left">
-              Bem-vindo ao Busca CRECI
-            </h1>
+            <h1 className="text-4xl font-bold text-center sm:text-left">Bem-vindo ao Busca CRECI</h1>
             <p className="text-lg text-center sm:text-left">
               Consulte o Registro de Corretores e Imobiliárias
             </p>

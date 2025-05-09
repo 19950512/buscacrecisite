@@ -1,14 +1,13 @@
-// app/layout.tsx
 "use client";
 
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import { Geist, Geist_Mono } from "next/font/google";
 import { UserProvider } from "./contexts/UserContext";
 import { SessionProvider } from "next-auth/react";
 
-// Fontes
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+
 const geistSans = Geist({
   subsets: ["latin"],
   variable: "--font-geist-sans",
@@ -21,32 +20,6 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
-// SEO Básico
-/* const metadata: Metadata = {
-  title: "BuscaCRECI - Consulta de Corretores e Imobiliárias",
-  description: "Encontre rapidamente informações de registro de corretores e imobiliárias em todo o Brasil. Simples, rápido e confiável.",
-  keywords: "CRECI, Consulta CRECI, Corretores, Imobiliárias, Registro CRECI",
-  authors: [{ name: "BuscaCRECI", url: "https://buscacreci.com.br" }],
-  openGraph: {
-    title: "BuscaCRECI",
-    description: "Consulta de registro de corretores e imobiliárias.",
-    url: "https://buscacreci.com.br",
-    siteName: "BuscaCRECI",
-    images: [
-      {
-        url: "https://buscacreci.com.br/og-image.png", // opcional: se quiser uma imagem de compartilhamento
-        width: 1200,
-        height: 630,
-        alt: "BuscaCRECI",
-      },
-    ],
-    locale: "pt_BR",
-    type: "website",
-  },
-  robots: "index, follow",
-  metadataBase: new URL("https://buscacreci.com.br"),
-}; */
-
 export default function RootLayout({
   children,
 }: {
@@ -54,6 +27,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" className="scroll-smooth">
+      <head>
+        <title>BuscaCRECI - Consulta de Corretores e Imobiliárias</title>
+        <meta name="description" content="Encontre rapidamente informações de registro de corretores e imobiliárias em todo o Brasil. Simples, rápido e confiável." />
+        <meta name="keywords" content="CRECI, Consulta CRECI, Corretores, Imobiliárias, Registro CRECI" />
+        <meta name="author" content="BuscaCRECI" />
+        <meta property="og:title" content="BuscaCRECI - Consulta de Corretores e Imobiliárias" />
+        <meta property="og:description" content="Encontre informações de registro de corretores e imobiliárias no Brasil de forma simples e rápida." />
+        <meta property="og:image" content="https://buscacreci.com.br/logo.png" />
+        <meta property="og:url" content="https://buscacreci.com.br" />
+        <meta property="og:locale" content="pt_BR" />
+        <meta name="robots" content="index, follow" />
+        <link rel="icon" href="/favicon.ico" />
+      </head>
 
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white-200 text-zinc-900`}>
         <SessionProvider>
