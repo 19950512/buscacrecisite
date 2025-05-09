@@ -29,7 +29,7 @@ export async function fetchUltimosCrecis(): Promise<CreciApiResponse[]> {
   const baseURL = process.env.NEXT_PUBLIC_API_URL || "https://api.buscacreci.com.br";
   
   // Aqui você pode substituir pelo seu endpoint real para pegar os últimos CRECIs.
-  const res = await fetch(`${baseURL}/ultimos-crecis`);
+  const res = await fetch(`${baseURL}/ultimoscrecis`);
 
   if (!res.ok) {
     let errorMessage = "Erro ao buscar últimos CRECIs.";
