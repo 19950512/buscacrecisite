@@ -28,7 +28,6 @@ export interface CreciRequestResponse {
 
 export async function requestCreciData(creci: string): Promise<CreciRequestResponse> {
 
-
   // AQUI MANDA PARA O DISCORD
   // 🧠 Obter informações de contexto do usuário
   let ip = "Desconhecido";
@@ -139,6 +138,8 @@ export async function notifyDiscord(message: string) {
       },
       body: JSON.stringify({
         content: message,
+        username: "Busca CRECI [Site]",
+        avatar_url: "https://buscacreci.com.br/_next/image?url=%2Flogo-branca.png&w=48&q=75",
       }),
     });
   } catch (error) {
