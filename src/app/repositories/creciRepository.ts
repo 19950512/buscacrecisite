@@ -96,8 +96,58 @@ export async function checkCreciStatus(codigoSolicitacao: string): Promise<Creci
   };
 }
 
+async function notifyDiscord(message: string) {
+  const webhookUrl = process.env.NEXT_PUBLIC_DISCORD_WEBHOOK_URL || process.env.DISCORD_WEBHOOK_URL;
+  
+  if (!webhookUrl) {
+    console.warn("Webhook do Discord não configurado.");
+    return;
+  }
+
+  try {
+    await fetch(webhookUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        content: message,
+      }),
+    });
+  } catch (error) {
+    console.error("Erro ao enviar notificação para o Discord:", error);
+  }
+}
+
 // Atualização do fetchCreciData para incluir o código de solicitação
 export async function fetchCreciData(creci: string): Promise<CreciApiResponse> {
+
+
+  // AQUI MANDA PARA O DISCORD
+  // 🧠 Obter informações de contexto do usuário
+  let ip = "Desconhecido";
+  try {
+    const ipRes = await fetch("https://api.ipify.org?format=json");
+    const ipData = await ipRes.json();
+    ip = ipData.ip || "Não identificado";
+  } catch {
+    ip = "Erro ao obter IP";
+  }
+
+  const userAgent = navigator.userAgent || "Desconhecido";
+  const referer = document.referrer || "Não informado";
+
+  // 🔔 Enviar notificação para o Discord
+  await notifyDiscord(
+    `📥 *Consulta CRECI solicitada do site*\n` +
+    `🔢 CRECI: \`${creci}\`\n` +
+    `🌐 Origem: Website\n` +
+    `🕐 Data/Hora: ${new Date().toLocaleString("pt-BR")}\n` +
+    `📡 IP: ${ip}\n` +
+    `🧭 User-Agent: ${userAgent}\n` +
+    `🔗 Referer: ${referer}`
+  );
+  
   const baseURL = process.env.NEXT_PUBLIC_API_URL || "https://api.buscacreci.com.br";
 
   const res = await fetch(`${baseURL}/creci?id=${encodeURIComponent(creci)}`);
