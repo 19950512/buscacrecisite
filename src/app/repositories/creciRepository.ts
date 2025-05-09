@@ -43,7 +43,7 @@ export async function requestCreciData(creci: string): Promise<CreciRequestRespo
   const referer = document.referrer || "Não informado";
 
   // 🔔 Enviar notificação para o Discord
-  await notifyDiscord(
+  notifyDiscord(
     `📥 *Consulta CRECI solicitada do site*\n` +
     `🔢 CRECI: \`${creci}\`\n` +
     `🌐 Origem: Website\n` +
@@ -142,6 +142,7 @@ export async function notifyDiscord(message: string) {
         avatar_url: "https://buscacreci.com.br/_next/image?url=%2Flogo-branca.png&w=48&q=75",
       }),
     });
+
   } catch (error) {
     console.error("Erro ao enviar notificação para o Discord:", error);
   }
@@ -173,6 +174,18 @@ export async function fetchCreciData(creci: string): Promise<CreciApiResponse> {
   if (!data || !data.nomeCompleto || !data.creciCompleto) {
     throw new Error("Dados incompletos retornados da API.");
   }
+
+  const discordMessage = `📥 *Consulta CRECI recebida do site*\n
+    Nome: ${data.nomeCompleto}
+    CRECI: ${data.creciCompleto}
+    Situação: ${data.situacao}
+    CPF: ${data.cpf}
+    Cidade: ${data.cidade}
+    Estado: ${data.estado}
+    Data: ${data.momento}
+  `;
+  
+  notifyDiscord(discordMessage);
 
   return {
     name: data.nomeCompleto,
