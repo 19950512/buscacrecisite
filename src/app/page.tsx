@@ -95,7 +95,11 @@ export default function Home() {
             }
 
             clearInterval(checkInterval); // Para a consulta periódica quando os dados forem retornados
-          } else {
+          } else if(statusData.mensagem !== ""){
+            // Se houver uma mensagem de erro, exibe-a
+            setResponseMessage(statusData.mensagem);
+            setResponseMessageType("error"); // Tipo de mensagem de erro
+          }else{
             console.log("Status atual:", statusData.status); // Log para ver o status
           }
         } catch (error) {

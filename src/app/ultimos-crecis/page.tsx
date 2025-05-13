@@ -58,20 +58,20 @@ const UltimosCrecis: FC = () => {
             ) : (
               crecis.map((creci) => (
                 <div
-                  key={creci.creciCompleto}
+                  key={creci.creci}
                   className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg flex justify-between items-center"
                 >
                   <div className="space-y-2">
-                    <h2 className="text-xl font-semibold text-gray-900 dark:text-white">{creci.nomeCompleto}</h2>
+                    <h2 className="text-xl font-semibold text-gray-900 dark:text-white">{creci.name}</h2>
                     <p className="text-gray-700 dark:text-gray-300">
-                      <strong>CRECI:</strong> {creci.creciCompleto}
+                      <strong>CRECI:</strong> {creci.creci}
                     </p>
                     <p className="text-gray-700 dark:text-gray-300">
-                      <strong>Cidade:</strong> {creci.cidade}, {creci.estado}
+                      <strong>Cidade:</strong> {creci.city}, {creci.state}
                     </p>
                   </div>
                   <button
-                    onClick={() => exibirDetalhes(creci.codigo)}
+                    onClick={() => exibirDetalhes(creci.creci)}
                     className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
                   >
                     Ver Mais
