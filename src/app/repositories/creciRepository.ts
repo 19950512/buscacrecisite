@@ -25,6 +25,15 @@ export interface CreciRequestResponse {
   codigo_solicitacao: string;
 }
 
+interface RawCreciApiResponse {
+  nomeCompleto?: string;
+  situacao?: string;
+  creciCompleto?: string;
+  cidade?: string;
+  estado?: string;
+  momento?: string;
+}
+
 export async function fetchUltimosCrecis(): Promise<CreciApiResponse[]> {
   const baseURL = process.env.NEXT_PUBLIC_API_URL || "https://api.buscacreci.com.br";
   
@@ -44,24 +53,21 @@ export async function fetchUltimosCrecis(): Promise<CreciApiResponse[]> {
 
     throw new Error(errorMessage);
   }
+  const rawData: RawCreciApiResponse[] = await res.json();
 
-  const rawData = await res.json();
-
-  // Transformar para o formato esperado
-  const data: CreciApiResponse[] = rawData.map((item: any) => ({
+  const data: CreciApiResponse[] = rawData.map((item) => ({
     name: item.nomeCompleto || '',
     status: item.situacao || '',
     creci: item.creciCompleto || '',
     city: item.cidade || '',
     state: item.estado || '',
-    phones: [], // Não vem da API, manter vazio
-    emails: [], // Não vem da API, manter vazio
-    address: '', // Não vem da API
-    cpf: '', // Não vem da API
+    phones: [],
+    emails: [],
+    address: '',
+    cpf: '',
     data: item.momento || '',
-    photoUrl: '/user-default.jpg', // Imagem default
+    photoUrl: '/user-default.jpg',
   }));
-
   return data;
 }
 
