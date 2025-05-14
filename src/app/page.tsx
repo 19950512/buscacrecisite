@@ -135,10 +135,8 @@ export default function Home() {
         {/* Conteúdo principal */}
         <div className="col-span-1 sm:col-span-9 flex flex-col items-center justify-center sm:items-start w-full px-4 sm:px-0">
           <main className="flex flex-col gap-3 items-center sm:items-start max-w-lg mx-auto sm:max-w-3xl">
-            <h1 className="text-5xl sm:text-6xl font-extrabold text-center sm:text-left text-gray-900 dark:text-white leading-tight">
-              <span className="whitespace-nowrap">
-                Bem-vindo ao <span className="text-blue-600 dark:text-blue-400">Busca CRECI</span>
-              </span>
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-center sm:text-left text-gray-900 dark:text-white leading-tight">
+              Bem-vindo ao <span className="text-blue-600 dark:text-blue-400">Busca CRECI</span>
             </h1>
 
             <p className="text-xl sm:text-2xl mt-2 text-center sm:text-left text-gray-700 dark:text-gray-300">
