@@ -25,11 +25,6 @@ const UltimosCrecis: FC = () => {
     fetchUltimosCrecisList();
   }, []);
 
-  // Função para exibir detalhes de um CRECI
-  const exibirDetalhes = (creci: string) => {
-    alert(`Detalhes do CRECI: ${creci}`); // Exemplo de exibição dos detalhes, substitua por um modal ou outra interface
-  };
-
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 p-6">
       <main className="container w-full max-w-screen-lg mx-auto px-0 sm:px-6 py-4 mt-12 sm:mt-20">
