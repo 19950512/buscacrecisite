@@ -138,8 +138,8 @@ export default function Home() {
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-center sm:text-left text-gray-900 dark:text-white leading-tight">
               Bem-vindo ao <span className="text-blue-600 dark:text-blue-400 sm:whitespace-nowrap">Busca CRECI</span>
             </h1>
-
-            <p className="text-xl sm:text-2xl mt-2 text-center sm:text-left text-gray-700 dark:text-gray-300">
+            
+            <p className="text-xl sm:text-2xl mt-2 text-center sm:text-left text-gray-800 dark:text-gray-100">
               Encontre informações de corretores e imobiliárias com facilidade.
             </p>
 
@@ -155,11 +155,12 @@ export default function Home() {
               <button
                 onClick={handleSearch}
                 disabled={isLoading}
-                className={`w-full mt-4 py-3 rounded-lg text-white ${
-                  isLoading
-                    ? 'bg-gray-400 dark:bg-gray-600'
-                    : 'bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700'
-                }`}
+                className={`w-full mt-4 py-3 rounded-lg text-white transition-colors ${
+  isLoading
+    ? 'bg-gray-500 dark:bg-gray-600 cursor-not-allowed'
+    : 'bg-blue-700 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-500'
+}`}
+
               >
                 {isLoading ? (
                   <div className="w-5 h-5 border-4 border-t-4 border-blue-600 rounded-full animate-spin mx-auto"></div>
@@ -171,7 +172,8 @@ export default function Home() {
 
             {/* Exibe o código da solicitação */}
             {codigoSolicitacao && (
-              <div className="p-4 bg-yellow-100 text-yellow-800 rounded-lg">
+              <div className="p-4 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-100 rounded-lg">
+
                 <p><strong>Código de Solicitação:</strong> {codigoSolicitacao}</p>
               </div>
             )}

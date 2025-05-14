@@ -57,6 +57,7 @@ export default function Header() {
             <button
               onClick={handleLogin}
               disabled={loading}
+              aria-label="Login com Google"
               className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-gray-800 bg-white hover:bg-gray-100 font-medium transition"
             >
               {loading ? (
