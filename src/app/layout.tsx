@@ -5,6 +5,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { UserProvider } from "./contexts/UserContext";
 import { SessionProvider } from "next-auth/react";
 
+import Script from "next/script"; // 👈 Importando o Script
+
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -39,6 +41,21 @@ export default function RootLayout({
         <meta property="og:locale" content="pt_BR" />
         <meta name="robots" content="index, follow" />
         <link rel="icon" href="/favicon.ico" />
+
+        {/* Google Analytics Script - Async Load */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-WBS7KKXYNZ"
+          strategy="afterInteractive"
+        />
+        {/* Google Analytics Init */}
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-WBS7KKXYNZ');
+          `}
+        </Script>
       </head>
 
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white-200 text-zinc-900`}>
