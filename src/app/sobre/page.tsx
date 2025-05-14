@@ -75,6 +75,21 @@ const Sobre: FC = () => (
         </ul>
       </section>
 
+      {/* Boas Práticas e Transparência */}
+      <section className="mb-16">
+        <h2 className="text-3xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Boas Práticas e Transparência</h2>
+        <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+          O <strong className="text-blue-600 dark:text-blue-400">Busca CRECI</strong> foi criado com total respeito às fontes de dados públicas.
+          Todas as informações consultadas são abertas e acessíveis nos sites oficiais dos CRECIs estaduais.
+          A aplicação nunca realiza consultas automatizadas em massa e respeita os limites definidos por cada site — inclusive verificando o arquivo <code>robots.txt</code> antes de efetuar requisições.
+        </p>
+        <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mt-4">
+          Caso você represente algum CRECI e deseje entrar em contato, contribuir ou sugerir ajustes no comportamento da plataforma,
+          estamos abertos ao diálogo e prontos para colaborar.
+        </p>
+      </section>
+
+
       {/* Links Úteis */}
       <section className="mb-10">
         <h2 className="text-3xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Links Úteis</h2>
