@@ -31,9 +31,8 @@ const UltimosCrecis: FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-6">
-        <br /><br />
-      <main className="w-full max-w-screen-lg mx-auto container mx-auto px-6 py-4">
+    <div className="min-h-screen bg-white dark:bg-gray-900 p-6">
+      <main className="container w-full max-w-screen-lg mx-auto px-0 sm:px-6 py-4 mt-12 sm:mt-20">
         
         <h1 className="text-4xl font-extrabold text-center text-gray-800 dark:text-white mb-8">
           Últimos CRECIs Consultados
@@ -75,13 +74,6 @@ const UltimosCrecis: FC = () => {
                     </p>
 
                   </div>
-                  <button
-                    onClick={() => exibirDetalhes(creci.creci)}
-                    disabled={true}
-                    className={`px-4 py-2 rounded-lg text-white bg-gray-400 cursor-not-allowed`}
-                  >
-                    Ver Mais
-                  </button>
                 </div>
               ))
             )}

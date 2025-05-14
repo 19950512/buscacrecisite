@@ -2,7 +2,7 @@
 import { FC } from "react";
 
 const Contato: FC = () => (
-  <div className="min-h-screen bg-gray-100 dark:bg-gray-900 relative">
+  <div className="min-h-screen bg-white dark:bg-gray-900 relative">
     <main className="container w-full max-w-screen-md mx-auto px-6 py-4 mt-20 text-center">
       <h1 className="text-4xl font-extrabold text-gray-800 dark:text-white mb-8">
         Fale Conosco

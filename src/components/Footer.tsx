@@ -33,15 +33,12 @@ const Footer = () => {
           </div>
 
           {/* Coluna de Links */}
-          <div className="flex flex-col md:flex-row justify-center md:justify-start gap-4 md:gap-6">
+          <div className="flex flex-col md:flex-row flex-wrap justify-center md:justify-start gap-4 md:gap-6 text-center">
             <Link href="/" className="hover:text-gray-400">
               Home
             </Link>
             <Link href="/contato" className="hover:text-gray-400">
               Contato
-            </Link>
-            <Link href="/testes" className="hover:text-gray-400">
-              Testes
             </Link>
             <Link href="/termos-de-uso" className="hover:text-gray-400">
               Termos de Uso
