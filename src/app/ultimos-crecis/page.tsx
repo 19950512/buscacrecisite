@@ -33,7 +33,8 @@ const UltimosCrecis: FC = () => {
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-6">
         <br /><br />
-      <main className="container mx-auto px-4 py-8">
+      <main className="w-full max-w-screen-lg mx-auto container mx-auto px-6 py-4">
+        
         <h1 className="text-4xl font-extrabold text-center text-gray-800 dark:text-white mb-8">
           Últimos CRECIs Consultados
         </h1>
@@ -69,10 +70,15 @@ const UltimosCrecis: FC = () => {
                     <p className="text-gray-700 dark:text-gray-300">
                       <strong>Cidade:</strong> {creci.city}, {creci.state}
                     </p>
+                    <p className="text-gray-700 dark:text-gray-300">
+                      <strong>Data:</strong> {new Date(creci.data).toLocaleString("pt-BR")}
+                    </p>
+
                   </div>
                   <button
                     onClick={() => exibirDetalhes(creci.creci)}
-                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                    disabled={true}
+                    className={`px-4 py-2 rounded-lg text-white bg-gray-400 cursor-not-allowed`}
                   >
                     Ver Mais
                   </button>

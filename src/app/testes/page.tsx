@@ -103,7 +103,7 @@ const Home = () => {
   };
 
   return (
-    <main className="p-6 mt-20 max-w-screen-md mx-auto bg-white dark:bg-gray-900 transition-colors duration-300">
+    <main className="mt-20 w-full max-w-screen-lg mx-auto bg-white dark:bg-gray-900 transition-colors duration-300 px-6 py-4">
       <h1 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Consulta de CRECI por Estado</h1>
       <p className="mb-4 text-gray-700 dark:text-gray-300">Clique no botão Verificar para consultar o status do CRECI, é uma maneira para verificar se a API está funcionando corretamente.</p>
 

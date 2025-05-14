@@ -45,9 +45,23 @@ export async function fetchUltimosCrecis(): Promise<CreciApiResponse[]> {
     throw new Error(errorMessage);
   }
 
-  const data = await res.json();
-  
-  // Assumimos que o retorno da API é uma lista de CRECIs
+  const rawData = await res.json();
+
+  // Transformar para o formato esperado
+  const data: CreciApiResponse[] = rawData.map((item: any) => ({
+    name: item.nomeCompleto || '',
+    status: item.situacao || '',
+    creci: item.creciCompleto || '',
+    city: item.cidade || '',
+    state: item.estado || '',
+    phones: [], // Não vem da API, manter vazio
+    emails: [], // Não vem da API, manter vazio
+    address: '', // Não vem da API
+    cpf: '', // Não vem da API
+    data: item.momento || '',
+    photoUrl: '/user-default.jpg', // Imagem default
+  }));
+
   return data;
 }
 
